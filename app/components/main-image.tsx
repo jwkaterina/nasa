@@ -31,8 +31,11 @@ const MainImage =  ({ media }: MainImageProps): JSX.Element => {
     if(!media) {
         return (
             <div className={styles.main_picture}>
-                <div className={styles.loading_image}></div>
-                <div className={styles.loading_description}>
+                <div className={styles.img}>
+                    <div className={styles.loading}></div>
+                </div>
+                <div className={styles.description}>
+                    <div className={styles.loading}></div>
                 </div>
             </div>
         );

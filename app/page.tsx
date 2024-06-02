@@ -3,7 +3,7 @@
 import fetchMedia from "./actions/fetch-media";
 import styles from "./page.module.css";
 import { ChangeEvent, useEffect, useState } from "react";
-import MainImage from "./components/main-image";
+import MainSection from "./components/main-section";
 import { Media } from './types';
 
 export default function Home(): JSX.Element {
@@ -55,7 +55,7 @@ export default function Home(): JSX.Element {
             </div>
             {!error ? 
             <div className={styles.image_container}>
-                <MainImage media={media}/>
+                <MainSection media={media}/>
                 <div className={styles.gallery}>
                 </div>
             </div> : 

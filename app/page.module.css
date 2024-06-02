@@ -1,4 +1,40 @@
-.img {
-    width: 300px;
-    height: 300px;
+.date_form {
+    height: 10vh;
+    padding: 20px;
 }
+
+.date_form label {
+    margin-right: 30px;
+    color: white;
+}
+
+.date_form input {
+    background-color: var(--gray);
+    border: 1px solid white;
+    color: white;
+    padding: 10px 15px;
+}
+
+.date_form input:focus {
+    outline: none;
+}
+
+.date_form input::-webkit-calendar-picker-indicator {
+    padding-left: 10px;
+    filter: invert(1);
+}
+
+.image_container {
+    padding: 15px;
+}
+
+.error {
+    color: white;
+    font-size: 30px;
+    height: 90vh;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+

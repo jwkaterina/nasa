@@ -1,56 +1,65 @@
 'use client'
 
-import fetchPhotos from "./actions/fetch-photos";
+import fetchMedia from "./actions/fetch-media";
 import styles from "./page.module.css";
 import { ChangeEvent, useEffect, useState } from "react";
+import MainImage from "./components/main-image";
+import { Media } from './types';
 
-export default function Home() {
+export default function Home(): JSX.Element {
     
+    const [today, setToday] = useState<string>('');
     const [currentDate, setCurrentDate] = useState<string>('');
-    const [url, setUrl] = useState<string>('');
+    const [media, setMedia] = useState<Media | null>(null);
+    const [error, setError] = useState<string | null>(null);
 
     useEffect(() => {
-        calculateCurrentDate();
+        calculateToday();
     }, []);
 
     useEffect(() => {
 
-        const fetchPhoto = async() => {
+        const fetch = async() => {
             try {
-                const photo = await fetchPhotos(currentDate);
-                setUrl(photo.url);
+                const mediaItem = await fetchMedia(currentDate);
+                setMedia(mediaItem);
             } 
             catch(err) {
                 console.log(err);
+                setError('Opps, no image found');
             }
         }
-        fetchPhoto();
+        fetch();
     }, [currentDate]);
 
-    const calculateCurrentDate = () => {
+    const calculateToday = () => {
         const year = new Date().getFullYear();
         const month = (new Date().getMonth() + 1).toString().padStart(2, "0");
         const day = (new Date().getDate()).toString().padStart(2, "0");
 
-        setCurrentDate(`${year}-${month}-${day}`);
+        const now = `${year}-${month}-${day}`;
+        setToday(now);
+        setCurrentDate(now);
     };
 
     const handleDateChange = (e: ChangeEvent<HTMLInputElement>) => {
-        console.log(e.target.value);
         setCurrentDate(e.target.value);
     }
 
+
     return (
         <>
-        <div>
-            <label>Choose Date</label>
-            <input type='date' value={currentDate} onChange={handleDateChange}></input>
-        </div>
-        <div>{url ? <img
-                className={styles.img}
-                src={url}
-                alt='nasa'
-            /> : <p className={styles.img}>Opps, no image found</p>}</div> 
+            <div className={styles.date_form}>
+                <label>Choose Date:</label>
+                <input type='date' value={currentDate} onChange={handleDateChange} max={today}></input>
+            </div>
+            {!error ? 
+            <div className={styles.image_container}>
+                <MainImage media={media}/>
+                <div className={styles.gallery}>
+                </div>
+            </div> : 
+            <div className={styles.error}>{error}</div>}
         </>
     );
 }

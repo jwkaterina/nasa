@@ -1,0 +1,52 @@
+.main_picture {
+    display: flex;
+    height: 50vh;
+}
+
+.img {
+    width: 30%;
+    height: 100%;
+    border: none;
+    object-fit: cover;
+    animation: fade-in 1s forwards;
+}
+
+@keyframes fade-in {
+    from {opacity: 0;}
+    to {opacity: 1;}
+}
+
+.description {
+    width: 70%;
+    height: 100%;
+    overflow: auto;
+    padding: 20px;
+    color: white;
+}
+
+@keyframes gradient { 
+    0%   { background-position: 0 0; }
+    100% { background-position: -200% 0; }
+}
+
+.loading_image {
+    width: 30%;
+    height: 100%;
+    background: repeating-linear-gradient(to right, var(--gray) 0%, white 50%, var(--gray) 100%);
+    background-size: 200% auto;
+    background-position: 0 100%;
+    animation: gradient 2s infinite;
+    animation-fill-mode: forwards;
+    animation-timing-function: linear;
+}
+
+.loading_description {
+    margin-left: 20px;
+    width: 70%;
+    background: repeating-linear-gradient(to right, var(--gray) 0%, white 50%, var(--gray) 100%);
+    background-size: 200% auto;
+    background-position: 0 100%;
+    animation: gradient 2s infinite;
+    animation-fill-mode: forwards;
+    animation-timing-function: linear;
+}

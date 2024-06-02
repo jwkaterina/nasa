@@ -4,7 +4,9 @@ import fetchMedia from "./actions/fetch-media";
 import styles from "./page.module.css";
 import { ChangeEvent, useEffect, useState } from "react";
 import MainSection from "./components/main-section";
+import Gallery from "./components/gallery";
 import { Media } from './types';
+import { dateString } from './utils';
 
 export default function Home(): JSX.Element {
     
@@ -12,16 +14,39 @@ export default function Home(): JSX.Element {
     const [currentDate, setCurrentDate] = useState<string>('');
     const [media, setMedia] = useState<Media | null>(null);
     const [error, setError] = useState<string | null>(null);
+    const [lastMedia, setLastMedia] = useState<Media[]>([]);
 
     useEffect(() => {
-        calculateToday();
+        const today = dateString(new Date());
+        setToday(today);
+        setCurrentDate(today);
+
+        const fetchLast = async() => {
+            const newMediaArr = [];
+            const date = new Date();
+            let i = 1;
+            while(i < 10) {
+                date.setDate(date.getDate() - 1);
+                try {
+                    const mediaItem: Media = await fetchMedia(dateString(date));
+                    newMediaArr.push(mediaItem);
+                } 
+                catch(err) {
+                    console.log(err);
+                    setError('Opps, no image found');
+                }
+                i++;
+            }
+            setLastMedia(newMediaArr);
+        }
+        fetchLast();
     }, []);
 
     useEffect(() => {
 
-        const fetch = async() => {
+        const fetchCurrent = async() => {
             try {
-                const mediaItem = await fetchMedia(currentDate);
+                const mediaItem: Media = await fetchMedia(currentDate);
                 setMedia(mediaItem);
             } 
             catch(err) {
@@ -29,18 +54,8 @@ export default function Home(): JSX.Element {
                 setError('Opps, no image found');
             }
         }
-        fetch();
+        fetchCurrent();
     }, [currentDate]);
-
-    const calculateToday = () => {
-        const year = new Date().getFullYear();
-        const month = (new Date().getMonth() + 1).toString().padStart(2, "0");
-        const day = (new Date().getDate()).toString().padStart(2, "0");
-
-        const now = `${year}-${month}-${day}`;
-        setToday(now);
-        setCurrentDate(now);
-    };
 
     const handleDateChange = (e: ChangeEvent<HTMLInputElement>) => {
         setCurrentDate(e.target.value);
@@ -54,12 +69,12 @@ export default function Home(): JSX.Element {
                 <input type='date' value={currentDate} onChange={handleDateChange} max={today}></input>
             </div>
             {!error ? 
-            <div className={styles.image_container}>
-                <MainSection media={media}/>
-                <div className={styles.gallery}>
-                </div>
-            </div> : 
-            <div className={styles.error}>{error}</div>}
+                <div className={styles.image_container}>
+                    <MainSection media={media}/>
+                    <Gallery mediaArray={lastMedia}/>
+                </div> : 
+                <div className={styles.error}>{error}</div>
+            }
         </>
     );
 }

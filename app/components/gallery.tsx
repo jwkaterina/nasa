@@ -12,16 +12,16 @@ const Gallery = ({ mediaArray }: GalleryProps): JSX.Element => {
     
     if(mediaArray.length == 0) {
         for(let i = 1; i < 10; i++) {
-            imageArr.push(<div className={styles.gallery_loading}></div>);
+            imageArr.push(<div key={i} className={styles.gallery_loading}></div>);
         }
     }
 
     if(mediaArray.length > 0) {
         imageArr = mediaArray.map((media) => {
             if(media.media_type == 'image') {
-                return <Image src={media.url} alt="nasa" width={150} height={150}/>
+                return <Image src={media.url} key={media.title} alt="nasa" width={150} height={150}/>
             } else if(media.media_type == 'video') {
-                return <iframe src={media.url} width={150} height={150}></iframe>
+                return <iframe src={media.url} key={media.title} width={150} height={150}></iframe>
             } else {
                 return <></>;
             }

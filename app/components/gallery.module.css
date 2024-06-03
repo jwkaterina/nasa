@@ -8,25 +8,37 @@
     padding-bottom: 20px;
 }
 
-.gallery_loading {
+.image_container {
+    position: relative;
+    overflow: hidden;
+    z-index: 1;
+}
+
+.image_container::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
     width: 100%;
     height: 100%;
-    background: repeating-linear-gradient(to right, var(--gray) 0%, white 50%, var(--gray) 100%);
-    background-size: 200% auto;
-    background-position: 0 100%;
-    animation: gradient 2s infinite;
-    animation-fill-mode: forwards;
-    animation-timing-function: linear;
+    background: #e5e5e5;
+    opacity: 0;
+    transition: .5s ease all;
 }
 
-@keyframes gradient { 
-    0%   { background-position: 0 0; }
-    100% { background-position: -200% 0; }
+.image_container:hover::after {
+    opacity: 0.2;
 }
 
-.thumbnail {
+.thumbnail, .img {
     border: none;
     object-fit: cover;
+    width: 100%;
+    transition: .5s ease all;
+}
+
+.image_container:hover .img, .image_container:hover .thumbnail {
+    transform: scale(1.2);
 }
 
 @media(max-width: 1000px) {

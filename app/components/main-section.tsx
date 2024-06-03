@@ -1,4 +1,5 @@
 import styles from './main-section.module.css';
+import commonStyles from '../page.module.css';
 import { Media } from '../types';
 import MainImage from './main-image';
 
@@ -11,11 +12,11 @@ const MainSection =  ({ media }: MainSectionProps): JSX.Element => {
     if(!media) {
         return (
             <div className={styles.container}>
-                <div className={styles.image}>
-                    <div className={styles.loading}></div>
+                <div className={styles.image_container}>
+                    <div className={commonStyles.loading}></div>
                 </div>
                 <div className={styles.description}>
-                    <div className={styles.loading}></div>
+                    <div className={commonStyles.loading}></div>
                 </div>
             </div>
         );
@@ -23,7 +24,7 @@ const MainSection =  ({ media }: MainSectionProps): JSX.Element => {
 
     return (
         <div className={styles.container}>
-            <div className={styles.image}>
+            <div className={styles.image_container}>
                 {media.media_type == 'image' ?
                     <MainImage url={media.url} title={media.title}/> : <></>}
                 {media.media_type == 'video' ?

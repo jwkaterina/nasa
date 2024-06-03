@@ -1,6 +1,9 @@
-.date_form {
-    height: 10vh;
-    padding: 20px;
+.container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: 100vh;
+    padding: 0 20px;
 }
 
 .date_form label {
@@ -22,10 +25,6 @@
 .date_form input::-webkit-calendar-picker-indicator {
     padding-left: 10px;
     filter: invert(1);
-}
-
-.image_container {
-    padding: 15px;
 }
 
 .error {

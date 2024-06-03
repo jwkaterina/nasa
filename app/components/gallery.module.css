@@ -1,12 +1,8 @@
 .gallery_container {
-    height: 40vh;
-    padding-top: 20px;
     display: flex;
 }
 
 .gallery_loading {
-    min-width: 150px;
-    height: 150px;
     background: repeating-linear-gradient(to right, var(--gray) 0%, white 50%, var(--gray) 100%);
     background-size: 200% auto;
     background-position: 0 100%;
@@ -20,12 +16,7 @@
     100% { background-position: -200% 0; }
 }
 
-.img {
-    min-width: 150px;
-}
-
 .thumbnail {
     border: none;
     object-fit: cover;
-    min-width: 150px;
 }

@@ -59,7 +59,7 @@ export default function Home(): JSX.Element {
 
 
     return (
-        <>
+        <div className={styles.container}>
             <div className={styles.date_form}>
                 <label>Choose Date:</label>
                 <input type='date' value={currentDate} onChange={handleDateChange} max={today}></input>
@@ -71,6 +71,6 @@ export default function Home(): JSX.Element {
                 </div> : 
                 <div className={styles.error}>{error}</div>
             }
-        </>
+        </div>
     );
 }

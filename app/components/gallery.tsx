@@ -1,6 +1,7 @@
 import styles from './gallery.module.css';
 import { Media } from '../types';
 import Image from 'next/image';
+import { useState, useEffect } from "react";
 
 type GalleryProps = {
     mediaArray: Media[],
@@ -9,10 +10,20 @@ type GalleryProps = {
 
 const Gallery = ({ mediaArray, setCurrentDate }: GalleryProps): JSX.Element => {
 
-    let mediaQuery1000: MediaQueryList | null = null;
-    if(typeof window !== 'undefined') {
-        mediaQuery1000 = window.matchMedia('(max-width: 1000px)');
+    const mediaArr1: Media[] = [];
+    for(let i = 0; i < 4; i++) {
+        mediaArr1.push(mediaArray[i])
     }
+    const mediaArr2: Media[] = [];
+    for(let i = 4; i < 8; i++) {
+        mediaArr2.push(mediaArray[i])
+    }
+
+    const [mediaQuery1000, setMediaQuery1000] = useState<MediaQueryList | null>(null);
+
+    useEffect(() => {
+        setMediaQuery1000(window.matchMedia('(max-width: 1000px)'));
+    }, []);
 
     let widthHeight: string;
     const padding = 20;
@@ -21,12 +32,14 @@ const Gallery = ({ mediaArray, setCurrentDate }: GalleryProps): JSX.Element => {
     } else {
         widthHeight = `calc((100vw - 2 * ${padding}px) / 8)`;
     }
-    console.log(widthHeight);
     let imageArr1: JSX.Element[] = [], imageArr2: JSX.Element[] = [];
     
     if(mediaArray.length == 0) {
         for(let i = 1; i < 5; i++) {
-            imageArr1.push(<div key={i} className={styles.gallery_loading} style={{width: widthHeight, height: widthHeight}}></div>);
+            imageArr1.push( 
+            <div key={i} style={{width: widthHeight, height: widthHeight}}>
+                <div className={styles.gallery_loading}></div>
+            </div>);
         }
         for(let i = 1; i < 5; i++) {
             imageArr2.push(<div key={i} className={styles.gallery_loading} style={{width: widthHeight, height: widthHeight}}></div>);
@@ -34,39 +47,35 @@ const Gallery = ({ mediaArray, setCurrentDate }: GalleryProps): JSX.Element => {
     }
 
     if(mediaArray.length > 0) {
-        imageArr1 = mediaArray.map((media, i) => {
-            if(media.media_type == 'image' && i < 4) {
+        imageArr1 = mediaArr1.map((media, i) => {
+            if(media.media_type == 'image') {
                 return (
-                <div key={media.date} style={{width: widthHeight, height: widthHeight, position: 'relative'}} onClick={() => setCurrentDate(media.date)}>
-                    <Image className={styles.img} src={media.url} alt={media.title} fill={true} />
-                </div>
-                )
-            } else if(media.media_type == 'video' && i < 4) {
-                return (
-                <div key={media.date} style={{width: widthHeight, height: widthHeight, position: 'relative'}} onClick={() => setCurrentDate(media.date)}>
-                    <Image className={styles.thumbnail} src={media.thumbnail_url!} alt={media.title} fill={true}/>
+                    <div key={i} style={{width: widthHeight, height: widthHeight, position: 'relative'}} onClick={() => setCurrentDate(media.date)}>
+                        <Image  className={styles.img} src={media.url} alt={media.title} fill={true} />
                     </div>
-                )
+                    )
             } else {
-                return <></>;
+                return (
+                    <div key={i} style={{width: widthHeight, height: widthHeight, position: 'relative'}} onClick={() => setCurrentDate(media.date)}>
+                        <Image className={styles.thumbnail} src={media.thumbnail_url!} alt={media.title} fill={true}/>
+                    </div>
+                    )
             }
         });
-        imageArr2 = mediaArray.map((media, i) => {
-            if(media.media_type == 'image' && i >= 4 && i < 9) {
+        imageArr2 = mediaArr2.map((media, i) => {
+            if(media.media_type == 'image') {
                 return (
-                <div key={media.date} style={{width: widthHeight, height: widthHeight, position: 'relative'}} onClick={() => setCurrentDate(media.date)}>
+                <div key={i} style={{width: widthHeight, height: widthHeight, position: 'relative'}} onClick={() => setCurrentDate(media.date)}>
                     <Image className={styles.img} src={media.url} alt={media.title} fill={true} />
                 </div>
                 )
-            } else if(media.media_type == 'video' && i >= 4 && i < 9) {
+            } else {
                 return (
-                <div key={media.date} style={{width: widthHeight, height: widthHeight, position: 'relative'}} onClick={() => setCurrentDate(media.date)}>
+                <div key={i} style={{width: widthHeight, height: widthHeight, position: 'relative'}} onClick={() => setCurrentDate(media.date)}>
                     <Image className={styles.thumbnail} src={media.thumbnail_url!} alt={media.title} fill={true}/>
                     </div>
                 )
-            } else {
-                return <></>;
-            }
+            } 
         });
     }
 

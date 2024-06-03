@@ -24,7 +24,7 @@ export default function Home(): JSX.Element {
 
         const fetchLast = async() => {
             const startDay = new Date();
-            startDay.setDate(startDay.getDate() - 8);
+            startDay.setDate(startDay.getDate() - 7);
 
             try {
                 const mediaItems: Media[] = await fetchRange(dateString(startDay), today);
@@ -65,9 +65,9 @@ export default function Home(): JSX.Element {
                 <input type='date' value={currentDate} onChange={handleDateChange} max={today}></input>
             </div>
             {!error ? 
-                <div className={styles.image_container}>
+                <div>
                     <MainSection media={media}/>
-                    <Gallery mediaArray={lastMedia}/>
+                    <Gallery mediaArray={lastMedia} setCurrentDate={setCurrentDate}/>
                 </div> : 
                 <div className={styles.error}>{error}</div>
             }

@@ -1,6 +1,5 @@
 import Image from 'next/image';
 import { useEffect, useRef } from 'react';
-import styles from './main-section.module.css'
 
 type MainImageProps = {
     url: string,
@@ -29,13 +28,11 @@ const MainImage = ({ url, title }: MainImageProps) => {
        
 
     return <Image
-        ref={imgRef}
-        className={styles.img}
-        src={url}
-        alt={title}
-        width={400}
-        height={400}
-    />;
+                ref={imgRef}
+                src={url}
+                alt={title}
+                fill={true}
+            />
 }
 
 export default MainImage

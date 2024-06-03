@@ -3,10 +3,11 @@ import { useEffect, useRef } from 'react';
 import styles from './main-section.module.css'
 
 type MainImageProps = {
-    url: string
+    url: string,
+    title: string
 }
 
-const MainImage = ({ url }: MainImageProps) => {
+const MainImage = ({ url, title }: MainImageProps) => {
 
     const imgRef = useRef<HTMLImageElement | null>(null);
 
@@ -31,7 +32,7 @@ const MainImage = ({ url }: MainImageProps) => {
         ref={imgRef}
         className={styles.img}
         src={url}
-        alt='nasa'
+        alt={title}
         width={400}
         height={400}
     />;

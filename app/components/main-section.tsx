@@ -24,7 +24,7 @@ const MainSection =  ({ media }: MainSectionProps): JSX.Element => {
     return (
         <div className={styles.main_picture}>
             {media.media_type == 'image' ?
-                <MainImage url={media.url}/> : <></>}
+                <MainImage url={media.url} title={media.title}/> : <></>}
             {media.media_type == 'video' ?
                 <iframe className={styles.img}
                     src={`${media.url}&autoplay=1&mute=1`} allow='autoplay'>

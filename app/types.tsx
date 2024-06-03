@@ -3,5 +3,6 @@ export type Media = {
     explanation: string,
     media_type: string,
     title: string,
-    url: string
+    url: string,
+    thumbnail_url?: string 
 }

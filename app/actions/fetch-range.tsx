@@ -1,8 +1,8 @@
 'use server'
 
-const fetchMedia = async(date: string) => {
+const fetchRange = async(startDate: string, endDate: string) => {
 
-    const url = `https://api.nasa.gov/planetary/apod?api_key=${process.env.API_KEY}&date=${date}&thumbs=true`;
+    const url = `https://api.nasa.gov/planetary/apod?api_key=${process.env.API_KEY}&start_date=${startDate}&end_date=${endDate}&thumbs=true`;
 
     try {
         const response = await fetch(url);
@@ -20,4 +20,4 @@ const fetchMedia = async(date: string) => {
     }
 };
 
-export default fetchMedia;
+export default fetchRange;

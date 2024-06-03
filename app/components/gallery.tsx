@@ -19,9 +19,9 @@ const Gallery = ({ mediaArray }: GalleryProps): JSX.Element => {
     if(mediaArray.length > 0) {
         imageArr = mediaArray.map((media) => {
             if(media.media_type == 'image') {
-                return <Image src={media.url} key={media.title} alt="nasa" width={150} height={150}/>
+                return <Image className={styles.img} src={media.url} key={media.title} alt={media.title} width={150} height={150}/>
             } else if(media.media_type == 'video') {
-                return <iframe src={media.url} key={media.title} width={150} height={150}></iframe>
+                return <Image className={styles.thumbnail} src={media.thumbnail_url!} alt={media.title} key={media.title} width={150} height={150}/>
             } else {
                 return <></>;
             }

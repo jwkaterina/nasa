@@ -1,6 +1,7 @@
 'use client'
 
 import fetchMedia from "./actions/fetch-media";
+import fetchRange from "./actions/fetch-range";
 import styles from "./page.module.css";
 import { ChangeEvent, useEffect, useState } from "react";
 import MainSection from "./components/main-section";
@@ -22,22 +23,17 @@ export default function Home(): JSX.Element {
         setCurrentDate(today);
 
         const fetchLast = async() => {
-            const newMediaArr = [];
-            const date = new Date();
-            let i = 1;
-            while(i < 10) {
-                date.setDate(date.getDate() - 1);
-                try {
-                    const mediaItem: Media = await fetchMedia(dateString(date));
-                    newMediaArr.push(mediaItem);
-                } 
-                catch(err) {
-                    console.log(err);
-                    setError('Opps, no image found');
-                }
-                i++;
+            const startDay = new Date();
+            startDay.setDate(startDay.getDate() - 8);
+
+            try {
+                const mediaItems: Media[] = await fetchRange(dateString(startDay), today);
+                setLastMedia(mediaItems);
+            } 
+            catch(err) {
+                console.log(err);
+                setError('Opps, no image found');
             }
-            setLastMedia(newMediaArr);
         }
         fetchLast();
     }, []);

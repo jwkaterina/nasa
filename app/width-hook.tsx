@@ -1,5 +1,9 @@
 import { useEffect, useState } from "react";
 
+/**
+ * @see: https://www.joshwcomeau.com/react/the-perils-of-rehydration/
+ * @returns width of the Gallery item that meets hydration expectations
+ */
 const useWidth = (): string => {
 
     const [mediaQuery1000, setMediaQuery1000] = useState<MediaQueryList | null>(null);

@@ -1,8 +1,8 @@
 import Thumbnail from './thumbnail';
 import GalleryImg from './gallery-img';
-import { Media } from '../types'
-import useWidth from '../width-hook';
-import commonStyles from '../page.module.css';
+import { Media } from '../../types'
+import useWidth from '../../width-hook';
+import commonStyles from '../../page.module.css';
 import styles from './gallery.module.css';
 
 type GalleryProps = {

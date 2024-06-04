@@ -1,8 +1,8 @@
 'use client'
 
 import { ChangeEvent, useEffect, useState } from "react";
-import MainSection from "./components/main-section";
-import Gallery from "./components/gallery";
+import MainSection from "./components/main-section/main-section";
+import Gallery from "./components/gallery/gallery";
 import { Media } from './types';
 import { dateString } from './utils';
 import { DateContext } from "./date-context";

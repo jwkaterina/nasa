@@ -1,7 +1,7 @@
 import MainImage from './main-image';
-import { Media } from '../types';
+import { Media } from '../../types';
 import styles from './main-section.module.css';
-import commonStyles from '../page.module.css';
+import commonStyles from '../../page.module.css';
 
 type MainSectionProps = {
     media: Media | null

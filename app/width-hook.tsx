@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-const useWidth = () => {
+const useWidth = (): string => {
 
     const [mediaQuery1000, setMediaQuery1000] = useState<MediaQueryList | null>(null);
 

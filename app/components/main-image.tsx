@@ -1,12 +1,12 @@
-import Image from 'next/image';
 import { useEffect, useRef } from 'react';
+import Image from 'next/image';
 
 type MainImageProps = {
     url: string,
     title: string
 }
 
-const MainImage = ({ url, title }: MainImageProps) => {
+const MainImage = ({ url, title }: MainImageProps): JSX.Element => {
 
     const imgRef = useRef<HTMLImageElement | null>(null);
 

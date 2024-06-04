@@ -8,6 +8,7 @@ import MainSection from "./components/main-section";
 import Gallery from "./components/gallery";
 import { Media } from './types';
 import { dateString } from './utils';
+import { DateContext } from "./date-context";
 
 export default function Home(): JSX.Element {
     
@@ -60,17 +61,22 @@ export default function Home(): JSX.Element {
 
     return (
         <div className={styles.container}>
-            <div className={styles.date_form}>
-                <label>Choose Date:</label>
-                <input type='date' value={currentDate} onChange={handleDateChange} max={today}></input>
-            </div>
-            {!error ? 
-                <div>
-                    <MainSection media={media}/>
-                    <Gallery mediaArray={lastMedia} setCurrentDate={setCurrentDate}/>
-                </div> : 
-                <div className={styles.error}>{error}</div>
-            }
+            <DateContext.Provider value={{
+                currentDate,
+                setCurrentDate
+            }}>
+                <div className={styles.date_form}>
+                    <label>Choose Date:</label>
+                    <input type='date' value={currentDate} onChange={handleDateChange} max={today}></input>
+                </div>
+                {!error ? 
+                    <div>
+                        <MainSection media={media}/>
+                        <Gallery mediaArray={lastMedia}/>
+                    </div> : 
+                    <div className={styles.error}>{error}</div>
+                }
+            </DateContext.Provider>
         </div>
     );
 }

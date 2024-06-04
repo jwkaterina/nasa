@@ -3,6 +3,7 @@ import commonStyles from '../page.module.css';
 import { Media } from '../types';
 import Image from 'next/image';
 import { useState, useEffect } from "react";
+import calculateWidth from '../width-hook';
 
 type GalleryProps = {
     mediaArray: Media[],
@@ -11,28 +12,11 @@ type GalleryProps = {
 
 const Gallery = ({ mediaArray, setCurrentDate }: GalleryProps): JSX.Element => {
 
-    const mediaArr1: Media[] = [];
-    for(let i = 0; i < 4; i++) {
-        mediaArr1.push(mediaArray[i])
-    }
-    const mediaArr2: Media[] = [];
-    for(let i = 4; i < 8; i++) {
-        mediaArr2.push(mediaArray[i])
-    }
+    const mediaArr1: Media[] = mediaArray.slice(0,4);
+    const mediaArr2: Media[] = mediaArray.slice(4,8);
 
-    const [mediaQuery1000, setMediaQuery1000] = useState<MediaQueryList | null>(null);
+    const widthHeight = calculateWidth();
 
-    useEffect(() => {
-        setMediaQuery1000(window.matchMedia('(max-width: 1000px)'));
-    }, []);
-
-    let widthHeight: string;
-    const padding = 20;
-    if(mediaQuery1000 && (mediaQuery1000 as MediaQueryList).matches) {
-        widthHeight = `calc((100vw - 2 * ${padding}px) / 4)`;
-    } else {
-        widthHeight = `calc((100vw - 2 * ${padding}px) / 8)`;
-    }
     let imageArr1: JSX.Element[] = [], imageArr2: JSX.Element[] = [];
     
     if(mediaArray.length == 0) {
@@ -43,40 +27,44 @@ const Gallery = ({ mediaArray, setCurrentDate }: GalleryProps): JSX.Element => {
             </div>);
         }
         for(let i = 1; i < 5; i++) {
-            imageArr2.push(<div key={i} className={commonStyles.loading} style={{width: widthHeight, height: widthHeight}}></div>);
+            imageArr2.push( <div key={i} style={{width: widthHeight, height: widthHeight}}>
+                <div className={commonStyles.loading}></div>
+            </div>);
         }
+    }
+
+    const Img = ({media}: {media: Media}) => {
+        return (
+            <div key={media.date} className={styles.image_container} style={{width: widthHeight, height: widthHeight}} onClick={() => setCurrentDate(media.date)} >
+                <Image className={styles.img} src={media.url} alt={media.title} fill={true} />
+                <div className={styles.info}>{media.date}<br/>{media.title}</div>
+            </div>
+        )
+    }
+
+    const Thumbnail = ({media}: {media: Media}) => {
+        return (
+            <div key={media.date} className={styles.image_container} style={{width: widthHeight, height: widthHeight}} onClick={() => setCurrentDate(media.date)} >
+                <Image className={styles.thumbnail} src={media.thumbnail_url!} alt={media.title} fill={true}/>
+                <div className={styles.info}>{media.date}<br/>{media.title}</div>
+            </div>
+        )
     }
 
     if(mediaArray.length > 0) {
         imageArr1 = mediaArr1.map((media, i) => {
             if(media.media_type == 'image') {
-                return (
-                    <div className={styles.image_container} key={i} style={{width: widthHeight, height: widthHeight}} onClick={() => setCurrentDate(media.date)}>
-                        <Image  className={styles.img} src={media.url} alt={media.title} fill={true} />
-                    </div>
-                    )
+                return <Img media={media}/>
             } else {
-                return (
-                    <div key={i} className={styles.image_container} style={{width: widthHeight, height: widthHeight}} onClick={() => setCurrentDate(media.date)}>
-                        <Image className={styles.thumbnail} src={media.thumbnail_url!} alt={media.title} fill={true}/>
-                    </div>
-                    )
+                return <Thumbnail media={media}/>
             }
         });
         imageArr2 = mediaArr2.map((media, i) => {
             if(media.media_type == 'image') {
-                return (
-                <div key={i} className={styles.image_container} style={{width: widthHeight, height: widthHeight}} onClick={() => setCurrentDate(media.date)}>
-                    <Image className={styles.img} src={media.url} alt={media.title} fill={true} />
-                </div>
-                )
+                return <Img media={media}/>
             } else {
-                return (
-                <div key={i} className={styles.image_container} style={{width: widthHeight, height: widthHeight}} onClick={() => setCurrentDate(media.date)}>
-                    <Image className={styles.thumbnail} src={media.thumbnail_url!} alt={media.title} fill={true}/>
-                    </div>
-                )
-            } 
+                return <Thumbnail media={media}/>
+            }
         });
     }
 
@@ -93,3 +81,4 @@ const Gallery = ({ mediaArray, setCurrentDate }: GalleryProps): JSX.Element => {
 };
 
 export default Gallery;
+

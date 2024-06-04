@@ -41,6 +41,22 @@
     transform: scale(1.2);
 }
 
+.image_container:hover .info {
+    padding: 10px;
+    height: 100%;
+}
+
+.info {
+    z-index: 10;
+    font-size: 12px;
+    overflow: hidden;
+    height: 0;
+    transition: .5s ease all;
+    position: absolute; 
+    bottom: 0;
+    left: 0;
+}
+
 @media(max-width: 1000px) {
     .gallery_container {
         flex-direction: column;

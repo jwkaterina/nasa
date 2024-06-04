@@ -26,11 +26,10 @@ const MainSection =  ({ media }: MainSectionProps): JSX.Element => {
         <div className={styles.container}>
             <div className={styles.image_container}>
                 {media.media_type == 'image' ?
-                    <MainImage url={media.url} title={media.title}/> : <></>}
-                {media.media_type == 'video' ?
+                    <MainImage url={media.url} title={media.title}/> :
                     <iframe className={styles.video}
                         src={`${media.url}&autoplay=1&mute=1`} allow='autoplay'>
-                    </iframe> : <></>}
+                    </iframe>}
             </div>
             <div className={styles.description}>
                 <p>{media.date}</p>

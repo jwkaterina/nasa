@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-const calculateWidth = () => {
+const useWidth = () => {
 
     const [mediaQuery1000, setMediaQuery1000] = useState<MediaQueryList | null>(null);
 
@@ -20,4 +20,4 @@ const calculateWidth = () => {
     return widthHeight;
 };
 
-export default calculateWidth;
+export default useWidth;

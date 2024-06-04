@@ -1,7 +1,7 @@
 import styles from './gallery.module.css';
 import commonStyles from '../page.module.css';
 import { Media } from '../types'
-import calculateWidth from '../width-hook';
+import useWidth from '../width-hook';
 import Thumbnail from './thumbnail';
 import GalleryImg from './gallery-img';
 
@@ -15,7 +15,7 @@ const Gallery = ({ mediaArray, setCurrentDate }: GalleryProps): JSX.Element => {
     const mediaArr1: Media[] = mediaArray.slice(0,4);
     const mediaArr2: Media[] = mediaArray.slice(4,8);
 
-    const widthHeight = calculateWidth();
+    const widthHeight = useWidth(); 
 
     let imageArr1: JSX.Element[] = [], imageArr2: JSX.Element[] = [];
     

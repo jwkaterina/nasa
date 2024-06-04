@@ -1,14 +1,14 @@
 'use client'
 
-import fetchMedia from "./actions/fetch-media";
-import fetchRange from "./actions/fetch-range";
-import styles from "./page.module.css";
 import { ChangeEvent, useEffect, useState } from "react";
 import MainSection from "./components/main-section";
 import Gallery from "./components/gallery";
 import { Media } from './types';
 import { dateString } from './utils';
 import { DateContext } from "./date-context";
+import fetchMedia from "./actions/fetch-media";
+import fetchRange from "./actions/fetch-range";
+import styles from "./page.module.css";
 
 export default function Home(): JSX.Element {
     

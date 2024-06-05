@@ -1,6 +1,6 @@
 'use server'
 
-const fetchMedia = async(date: string) => {
+export const fetchMedia = async(date: string) => {
 
     const url = `https://api.nasa.gov/planetary/apod?api_key=${process.env.API_KEY}&date=${date}&thumbs=true`;
 
@@ -19,5 +19,3 @@ const fetchMedia = async(date: string) => {
         return err;
     }
 };
-
-export default fetchMedia;

@@ -1,6 +1,6 @@
 'use server'
 
-const fetchRange = async(startDate: string, endDate: string) => {
+export const fetchRange = async(startDate: string, endDate: string) => {
 
     const url = `https://api.nasa.gov/planetary/apod?api_key=${process.env.API_KEY}&start_date=${startDate}&end_date=${endDate}&thumbs=true`;
 
@@ -19,5 +19,3 @@ const fetchRange = async(startDate: string, endDate: string) => {
         return err;
     }
 };
-
-export default fetchRange;

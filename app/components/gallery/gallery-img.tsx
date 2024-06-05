@@ -15,8 +15,15 @@ const GalleryImg = ({media, widthHeight}: GalleryImgProps): JSX.Element => {
     const { setCurrentDate } = useContext(DateContext);
 
     return (
-        <div className={styles.image_container} style={{width: widthHeight, height: widthHeight}} onClick={() => setCurrentDate(media.date)} >
-            <Image className={styles.img} src={media.url} alt={media.title} fill={true} />
+        <div 
+            className={styles.image_container} 
+            style={{width: widthHeight, height: widthHeight}} 
+            onClick={() => setCurrentDate(media.date)} >
+            <Image 
+                className={styles.img} 
+                src={media.url} 
+                alt={media.title} 
+                fill={true} />
             <div className={styles.info}>{media.date}<br/>{media.title}</div>
         </div>
     )

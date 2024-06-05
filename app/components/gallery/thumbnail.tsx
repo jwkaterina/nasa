@@ -4,6 +4,10 @@ import styles from './gallery.module.css';
 import { useContext } from 'react';
 import { DateContext } from '../../date-context';
 
+/**
+ * @returns an element with nasa data of type video
+ */
+
 type ThumbnailProps = {
     media: Media, 
     widthHeight: string

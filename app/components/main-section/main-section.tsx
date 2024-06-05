@@ -9,6 +9,7 @@ type MainSectionProps = {
 
 const MainSection =  ({ media }: MainSectionProps): JSX.Element => {
 
+    // Show loading animation
     if(!media) {
         return (
             <div className={styles.container}>
@@ -27,7 +28,7 @@ const MainSection =  ({ media }: MainSectionProps): JSX.Element => {
             <div className={styles.image_container}>
                 {media.media_type == 'image' ?
                     <MainImage url={media.url} title={media.title}/> :
-                    <iframe className={styles.video}
+                    <iframe title={media.title} className={styles.video}
                         src={`${media.url}&autoplay=1&mute=1`} allow='autoplay'>
                     </iframe>}
             </div>

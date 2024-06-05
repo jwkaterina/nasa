@@ -1,5 +1,9 @@
 'use server'
 
+/**
+ * @returns nasa images for a given range of dates
+ */
+
 export const fetchRange = async(startDate: string, endDate: string) => {
 
     const url = `https://api.nasa.gov/planetary/apod?api_key=${process.env.API_KEY}&start_date=${startDate}&end_date=${endDate}&thumbs=true`;

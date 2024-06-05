@@ -11,13 +11,16 @@ type GalleryProps = {
 
 const Gallery = ({ mediaArray}: GalleryProps): JSX.Element => {
 
+    // Devide an array into 2 for responsiveness. 
     const mediaArr1: Media[] = mediaArray.slice(0,4);
     const mediaArr2: Media[] = mediaArray.slice(4,8);
 
+    // Calculate width and height of an item depending on window width
     const widthHeight: string = useWidth(); 
 
     let imageArr1: JSX.Element[] = [], imageArr2: JSX.Element[] = [];
     
+    // Show loading animation
     if(mediaArray.length == 0) {
         for(let i = 1; i < 5; i++) {
             imageArr1.push( 
@@ -32,6 +35,7 @@ const Gallery = ({ mediaArray}: GalleryProps): JSX.Element => {
         }
     }
 
+    // Show fetched images
     if(mediaArray.length > 0) {
         imageArr1 = mediaArr1.map((media, i) => {
             if(media.media_type == 'image') {

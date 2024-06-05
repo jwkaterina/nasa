@@ -10,6 +10,7 @@ const MainImage = ({ url, title }: MainImageProps): JSX.Element => {
 
     const imgRef = useRef<HTMLImageElement | null>(null);
 
+    // Animate image when url changes
     useEffect(() => {
         const options: KeyframeAnimationOptions  = {
             duration: 1000,

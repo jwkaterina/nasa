@@ -4,6 +4,9 @@ import styles from './gallery.module.css';
 import { DateContext } from '../../date-context';
 import { useContext } from 'react';
 
+/**
+ * @returns an element with nasa data of type image
+ */
 
 type GalleryImgProps = {
     media: Media, 
@@ -18,7 +21,7 @@ const GalleryImg = ({media, widthHeight}: GalleryImgProps): JSX.Element => {
         <div 
             className={styles.image_container} 
             style={{width: widthHeight, height: widthHeight}} 
-            onClick={() => setCurrentDate(media.date)} >
+            onClick={() => setCurrentDate(media.date)}>
             <Image 
                 className={styles.img} 
                 src={media.url} 

@@ -1,6 +1,6 @@
 'use client'
 
-import { ChangeEvent, useEffect, useState } from "react";
+import { ChangeEvent, useEffect, useState, useMemo } from "react";
 import MainSection from "./components/main-section/main-section";
 import Gallery from "./components/gallery/gallery";
 import { Media } from './types';
@@ -18,6 +18,8 @@ export default function Home(): JSX.Element {
     const [error, setError] = useState<string | null>(null);
     const [lastMedia, setLastMedia] = useState<Media[]>([]);
 
+
+    // Fetch data for last 8 days
     useEffect(() => {
         const today = dateString(new Date());
         setToday(today);
@@ -39,6 +41,7 @@ export default function Home(): JSX.Element {
         fetchLast();
     }, []);
 
+     // Fetch data for last the day
     useEffect(() => {
 
         const fetchCurrent = async() => {
@@ -58,16 +61,18 @@ export default function Home(): JSX.Element {
         setCurrentDate(e.target.value);
     }
 
+    const contextValue = useMemo(() => ({
+        currentDate,
+        setCurrentDate
+    }), [currentDate, setCurrentDate]
+)
 
     return (
         <div className={styles.container}>
-            <DateContext.Provider value={{
-                currentDate,
-                setCurrentDate
-            }}>
+            <DateContext.Provider value={contextValue}>
                 <div className={styles.date_form}>
-                    <label>Choose Date:</label>
-                    <input type='date' value={currentDate} onChange={handleDateChange} max={today}></input>
+                    <label htmlFor='date'>Choose Date:</label>
+                    <input type='date' id='date' value={currentDate} onChange={handleDateChange} max={today}></input>
                 </div>
                 {!error ? 
                     <div>
